@@ -26,5 +26,7 @@ module.exports = {
     'react/jsx-filename-extension': 'off',
     'react/jsx-one-expression-per-line': 'off',
     'react/destructuring-assignment': 'off',
+    'react/self-closing-comp': 'off',
+    'react/prop-types': 'off',
   },
 };

@@ -25,5 +25,6 @@ module.exports = {
   rules: {
     'react/jsx-filename-extension': 'off',
     'react/jsx-one-expression-per-line': 'off',
+    'react/destructuring-assignment': 'off',
   },
 };

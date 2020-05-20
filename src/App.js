@@ -1,11 +1,13 @@
 import React from 'react';
+
 import Layout from './components/Layout/Layout';
+import BurguerBuilder from './containers/BurgerBuilder/BurguerBuilder';
 
 function App() {
   return (
     <div className="App">
       <Layout>
-        <h1>Hello, World!</h1>
+        <BurguerBuilder />
       </Layout>
     </div>
   );

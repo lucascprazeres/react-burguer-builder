@@ -11,19 +11,26 @@ const Burguer = (props) => {
     ...Array(props.ingredients[igKey]),
   ]);
 
-  const ingredientArray = emptyArrayStructuredByType.map((typeArray, igIndex) => {
+  const ingredientArrayByType = emptyArrayStructuredByType.map((typeArray, igIndex) => {
     const ingredientType = ingredientKeyArray[igIndex];
-
     return typeArray.map((_, i) => {
       const componentkey = ingredientType + i;
       return <BurguerIngredient key={componentkey} type={ingredientType} />;
     });
   });
 
+  const ingredientArrayReduced = ingredientArrayByType.reduce((arr, el) => {
+    return arr.concat(el);
+  }, []);
+
   return (
     <div className={classes.Burguer}>
       <BurguerIngredient type="bread-top" />
-      {ingredientArray}
+      {
+        ingredientArrayReduced.length > 0
+          ? ingredientArrayReduced
+          : <p>Please start adding ingredients!</p>
+        }
       <BurguerIngredient type="bread-bottom" />
     </div>
   );

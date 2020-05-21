@@ -1,0 +1,30 @@
+.Burguer {
+  margin: auto;
+  width: 80%;
+  height: 250px;
+
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+@media(min-width: 1000px) and (min-height: 700px) {
+  .Burguer {
+    width: 700px;
+    height: 600px;
+  }
+}
+
+@media(min-width: 500px) and (min-height: 401px) {
+  .Burguer {
+    width: 450px;
+    height: 400px;
+  }
+}
+/*Portrait*/
+@media(min-width: 500px) and (min-height: 400px) {
+  .Burguer {
+    width: 350px;
+    height: 300px;
+  }
+}

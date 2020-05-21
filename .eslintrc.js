@@ -28,5 +28,6 @@ module.exports = {
     'react/destructuring-assignment': 'off',
     'react/self-closing-comp': 'off',
     'react/prop-types': 'off',
+    'arrow-body-style': 'off',
   },
 };

@@ -5,8 +5,19 @@ import classes from './BuildControl.module.css';
 const BuildControl = (props) => (
   <div className={classes.BuildControl}>
     <div className={classes.Label}>{props.label}</div>
-    <button type="button" className={classes.Less}>Less</button>
-    <button type="button" className={classes.More} onClick={props.added}>More</button>
+    <button
+      type="button"
+      className={classes.Less}
+      onClick={props.removed}
+      disabled={!props.enabled}
+    >Less
+    </button>
+    <button
+      type="button"
+      className={classes.More}
+      onClick={props.added}
+    >More
+    </button>
   </div>
 );
 

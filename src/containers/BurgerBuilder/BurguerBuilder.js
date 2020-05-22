@@ -22,6 +22,7 @@ class BurguerBuilder extends Component {
         meat: 0,
       },
       totalPrice: 4,
+      purchasable: false,
     };
   }
 
@@ -37,6 +38,7 @@ class BurguerBuilder extends Component {
       ingredients: updatedIngredients,
       totalPrice: oldPrice + priceAdition,
     });
+    this.updatePurchaseState(updatedIngredients);
   }
 
   removeIngredienthandler = (type) => {
@@ -56,6 +58,7 @@ class BurguerBuilder extends Component {
       ingredients: updatedIngredients,
       totalPrice: oldPrice - priceDeduction,
     });
+    this.updatePurchaseState(updatedIngredients);
   }
 
   getEnabledButtons = () => {
@@ -73,6 +76,14 @@ class BurguerBuilder extends Component {
     return enabledButtons;
   }
 
+  updatePurchaseState = (updatedIngredients) => {
+    const totalIngredients = Object.values(updatedIngredients).reduce((sum, currentVal) => {
+      return sum + currentVal;
+    }, 0);
+
+    this.setState({ purchasable: totalIngredients > 0 });
+  }
+
   render() {
     const enabledBtns = this.getEnabledButtons();
 
@@ -84,6 +95,7 @@ class BurguerBuilder extends Component {
           ingredientRemoved={this.removeIngredienthandler}
           enabledBtns={enabledBtns}
           price={this.state.totalPrice}
+          purchasable={this.state.purchasable}
         />
       </Aux>
     );

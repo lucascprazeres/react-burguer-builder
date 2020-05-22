@@ -25,6 +25,7 @@ class BurguerBuilder extends Component {
       },
       totalPrice: 4,
       purchasable: false,
+      purchasing: false,
     };
   }
 
@@ -63,6 +64,10 @@ class BurguerBuilder extends Component {
     this.updatePurchaseState(updatedIngredients);
   }
 
+  purchasehandler = () => {
+    this.setState({ purchasing: true });
+  }
+
   getEnabledButtons = () => {
     const enabledButtons = {
       ...this.state.ingredients,
@@ -91,7 +96,7 @@ class BurguerBuilder extends Component {
 
     return (
       <Aux>
-        <Modal>
+        <Modal show={this.state.purchasing}>
           <OrderSummary ingredients={this.state.ingredients} />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
@@ -101,6 +106,7 @@ class BurguerBuilder extends Component {
           enabledBtns={enabledBtns}
           price={this.state.totalPrice}
           purchasable={this.state.purchasable}
+          ordered={this.purchasehandler}
         />
       </Aux>
     );

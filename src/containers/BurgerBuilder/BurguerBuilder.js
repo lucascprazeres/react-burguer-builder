@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 
 import Aux from '../../hoc/Aux/Aux';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Burger from '../../components/Burguer/Burguer';
 import BuildControls from '../../components/Burguer/BuildControls/BuildControls';
-import Modal from '../../UI/Modal/Modal';
 import OrderSummary from '../../components/Burguer/OrderSummary/OrderSummary';
+import Modal from '../../UI/Modal/Modal';
 import Spinner from '../../UI/Spinner/Spinner';
 
 import axios from '../../axios-orders';
@@ -155,4 +156,4 @@ class BurguerBuilder extends Component {
   }
 }
 
-export default BurguerBuilder;
+export default withErrorHandler(BurguerBuilder, axios);

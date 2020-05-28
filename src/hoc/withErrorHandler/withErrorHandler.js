@@ -10,13 +10,16 @@ const withErrorHandler = (WrappedComponent, axios) => {
         error: null,
       };
 
-      axios.interceptors.request.use(this.handleSuccededRequest, this.handleError);
-      axios.interceptors.response.use((res) => res, this.handleError);
+      this.reqInterceptor = axios.interceptors.request
+        .use((res) => res, this.handleError);
+
+      this.resInterceptor = axios.interceptors.response
+        .use((res) => res, this.handleError);
     }
 
-    handleSuccededRequest = (response) => {
-      this.setState({ error: null });
-      return response;
+    componentWillUnmount() {
+      axios.interceptors.request.eject(this.reqInterceptor);
+      axios.interceptors.response.eject(this.resInterceptor);
     }
 
     handleError = (error) => {

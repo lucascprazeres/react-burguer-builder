@@ -5,6 +5,7 @@ import Burger from '../../components/Burguer/Burguer';
 import BuildControls from '../../components/Burguer/BuildControls/BuildControls';
 import Modal from '../../UI/Modal/Modal';
 import OrderSummary from '../../components/Burguer/OrderSummary/OrderSummary';
+import Spinner from '../../UI/Spinner/Spinner';
 
 import axios from '../../axios-orders';
 
@@ -28,6 +29,7 @@ class BurguerBuilder extends Component {
       totalPrice: 4,
       purchasable: false,
       purchasing: false,
+      loading: false,
     };
   }
 
@@ -75,6 +77,8 @@ class BurguerBuilder extends Component {
   }
 
   continuePurchaseHandler = () => {
+    this.setState({ loading: true });
+
     const order = {
       ingredients: this.state.ingredients,
       price: this.state.totalPrice,
@@ -91,8 +95,8 @@ class BurguerBuilder extends Component {
     };
 
     axios.post('/orders.json', order)
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
+      .then(() => this.setState({ loading: false, purchasing: false }))
+      .catch(() => this.setState({ loading: false, purchasing: false }));
   }
 
   getEnabledButtons = () => {
@@ -121,15 +125,21 @@ class BurguerBuilder extends Component {
   render() {
     const enabledBtns = this.getEnabledButtons();
 
+    const orderSummary = this.state.loading
+      ? <Spinner />
+      : (
+        <OrderSummary
+          ingredients={this.state.ingredients}
+          price={this.state.totalPrice}
+          cancel={this.cancelPurchaseHandler}
+          continue={this.continuePurchaseHandler}
+        />
+      );
+
     return (
       <Aux>
         <Modal show={this.state.purchasing} modalClosed={this.cancelPurchaseHandler}>
-          <OrderSummary
-            ingredients={this.state.ingredients}
-            price={this.state.totalPrice}
-            cancel={this.cancelPurchaseHandler}
-            continue={this.continuePurchaseHandler}
-          />
+          {orderSummary}
         </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls

@@ -97,6 +97,7 @@ class BurguerBuilder extends Component {
       const queryParam = `${encodeURIComponent(ing)}=${encodeURIComponent(ingredients[ing])}`;
       queryParams.push(queryParam);
     });
+    queryParams.push(`price=${this.state.totalPrice}`);
     return `?${queryParams.join('&')}`;
   }
 

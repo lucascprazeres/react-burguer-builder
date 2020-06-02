@@ -9,12 +9,17 @@ class Checkout extends Component {
     super(props);
     this.state = {
       ingredients: {},
+      price: null,
     };
   }
 
   componentDidMount() {
-    const ingredients = this.getQueryParamsObject();
-    this.setState({ ingredients });
+    const order = this.getQueryParamsObject();
+    console.log(order);
+    this.setState({
+      price: order.price,
+      ingredients: order.ingredients,
+    });
   }
 
   handleCheckoutContinue = () => {
@@ -27,15 +32,22 @@ class Checkout extends Component {
 
   getQueryParamsObject = () => {
     const params = new URLSearchParams(this.props.location.search);
-    const object = {};
-
+    const object = {
+      price: null,
+      ingredients: {},
+    };
     for (const [key, value] of params.entries()) {
-      object[key] = value;
+      if (key === 'price') {
+        object.price = Number(value);
+      } else {
+        object.ingredients[key] = value;
+      }
     }
     return object;
   }
 
   render() {
+    console.log(this.state);
     return (
       <div>
         <CheckoutSummary
@@ -45,7 +57,13 @@ class Checkout extends Component {
         />
         <Route
           path={`${this.props.match.url}/contact-data`}
-          component={ContactForm}
+          render={(props) => (
+            <ContactForm
+              ingredients={this.state.ingredients}
+              price={this.state.price}
+              {...props}
+            />
+          )}
         />
       </div>
     );

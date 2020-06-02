@@ -26,8 +26,8 @@ class Checkout extends Component {
   getQueryParamsObject = () => {
     const params = new URLSearchParams(this.props.location.search);
     const object = {};
-    for (const param of params.entries()) {
-      const [key, value] = param;
+
+    for (const [key, value] of params.entries()) {
       object[key] = value;
     }
     return object;

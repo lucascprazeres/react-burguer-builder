@@ -82,26 +82,7 @@ class BurguerBuilder extends Component {
   }
 
   hanldePurchaseContinue = () => {
-    this.setState({ loading: true });
-
-    const order = {
-      ingredients: this.state.ingredients,
-      price: this.state.totalPrice,
-      customer: {
-        name: 'Lucas dos Prazeres',
-        address: {
-          street: 'testsreet 1',
-          zipCode: '123456',
-          country: 'Brazil',
-        },
-        email: 'email@example.com',
-      },
-      deliveryMethod: 'fastest',
-    };
-
-    axios.post('/orders.json', order)
-      .then(() => this.setState({ loading: false, purchasing: false }))
-      .catch(() => this.setState({ loading: false, purchasing: false }));
+    this.props.history.push('/checkout');
   }
 
   getEnabledButtons = () => {

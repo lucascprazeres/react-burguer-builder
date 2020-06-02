@@ -82,7 +82,22 @@ class BurguerBuilder extends Component {
   }
 
   hanldePurchaseContinue = () => {
-    this.props.history.push('/checkout');
+    const queryString = this.getIngredientQueryString();
+    this.props.history.push({
+      pathname: '/checkout',
+      search: queryString,
+    });
+  }
+
+  getIngredientQueryString = () => {
+    const { ingredients } = this.state;
+
+    const queryParams = [];
+    Object.keys(ingredients).forEach((ing) => {
+      const queryParam = `${encodeURIComponent(ing)}=${encodeURIComponent(ingredients[ing])}`;
+      queryParams.push(queryParam);
+    });
+    return `?${queryParams.join('&')}`;
   }
 
   getEnabledButtons = () => {

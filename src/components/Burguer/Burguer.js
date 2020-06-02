@@ -8,7 +8,7 @@ const Burguer = (props) => {
   const ingredientKeyArray = Object.keys(props.ingredients);
 
   const emptyArrayStructuredByType = ingredientKeyArray.map((igKey) => [
-    ...Array(props.ingredients[igKey]),
+    ...new Array(Number(props.ingredients[igKey])),
   ]);
 
   const ingredientArrayByType = emptyArrayStructuredByType.map((typeArray, igIndex) => {
@@ -22,6 +22,7 @@ const Burguer = (props) => {
   const ingredientArrayReduced = ingredientArrayByType.reduce((arr, el) => {
     return arr.concat(el);
   }, []);
+
 
   return (
     <div className={classes.Burguer}>
